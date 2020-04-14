@@ -30,12 +30,23 @@ namespace Damian_Wnukowski_zadanie1
             }
             catch
             {
-                textBox3.Text = "Liczby muszą być we właściwym formacie!";
+                textBox3.Text = "Liczby wejściowe muszą być we właściwym formacie i nie mogą być puste!";
                 return;
             }
 
-            int forRect = problemSolver.calculateZad8(z, Model.AreaType.Rectangle);
-            int forTrapez = problemSolver.calculateZad8(z, Model.AreaType.Trapezoid);
+            int forRect;
+            int forTrapez;
+
+            try
+            {
+                forRect = problemSolver.calculateZad8(z, Model.AreaType.Rectangle);
+                forTrapez = problemSolver.calculateZad8(z, Model.AreaType.Trapezoid);
+            }
+            catch (TimeoutException ex)
+            {
+                textBox3.Text = "Przekroczono czas oczekiwania na wyniki, spróbuj łatwiejszych do obliczenia danych wejściowych";
+                return;
+            }
 
             textBox3.Text = String.Format("(METODA PROSTOKĄTÓW) Dla podanego Z  znaleziono N={0}", forRect);
             textBox3.Text += Environment.NewLine;

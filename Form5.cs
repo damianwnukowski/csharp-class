@@ -30,12 +30,23 @@ namespace Damian_Wnukowski_zadanie1
             }
             catch
             {
-                textBox3.Text = "Liczby muszą być we właściwym formacie!";
+                textBox3.Text = "Liczby wejściowe muszą być we właściwym formacie i nie mogą być puste!";
                 return;
             }
 
-            List<double> xsRect = problemSolver.calculateZad5(k, Model.AreaType.Rectangle);
-            List<double> xsTrapezoid = problemSolver.calculateZad5(k, Model.AreaType.Trapezoid);
+            List<double> xsRect;
+            List<double> xsTrapezoid;
+
+            try
+            {
+                xsRect = problemSolver.calculateZad5(k, Model.AreaType.Rectangle);
+                xsTrapezoid = problemSolver.calculateZad5(k, Model.AreaType.Trapezoid);
+            } catch (TimeoutException ex)
+            {
+                textBox3.Text = "Przekroczono czas oczekiwania na wyniki, spróbuj łatwiejszych do obliczenia danych wejściowych";
+                return;
+            }
+            
 
             textBox3.Text = String.Format("Dla podanego K i metody prostokątów otrzymano: x1: {0}, x2: {1}, x3: {2}, x4: {3}", xsRect[0], xsRect[1], xsRect[2], xsRect[3]);
             textBox3.Text += Environment.NewLine;

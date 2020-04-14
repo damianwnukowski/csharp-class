@@ -26,13 +26,20 @@ namespace Damian_Wnukowski_zadanie1
                 z = Convert.ToDouble(textBox2.Text);
             } catch
             {
-                textBox3.Text = "Podaj wartości M(liczba powtórzeń) i Z (ilość procent). Liczby muszą być we właściwym formacie!";
+                textBox3.Text = "Liczby wejściowe muszą być we właściwym formacie i nie mogą być puste!";
                 return;
             }
 
             textBox3.Text = String.Format("Wyniki dla M={0} i Z={1}", m, z);
-
-            var global = problemSolver.calculateZad1(m, z);
+            Global global = null;
+            try
+            {
+                global = problemSolver.calculateZad1(m, z);
+            } catch (TimeoutException ex)
+            {
+                textBox3.Text = "Przekroczono czas oczekiwania na wyniki, spróbuj łatwiejszych do obliczenia danych wejściowych";
+                return;
+            }
             var stringBuilder = new StringBuilder();
             foreach (var singleCount in global.ListOfSingleCount)
             {

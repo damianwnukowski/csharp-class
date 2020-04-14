@@ -25,13 +25,20 @@ namespace Damian_Wnukowski_zadanie1
             }
             catch
             {
-                textBox3.Text = "Podaj wartości Z (ilość procent). Liczby muszą być we właściwym formacie!";
+                textBox3.Text = "Liczby wejściowe muszą być we właściwym formacie i nie mogą być puste!";
                 return;
             }
 
-            textBox3.Text = String.Format("Wyniki dla Z={0}",z);
-
-            var n = problemSolver.calculateZad2(z);
+            double n;
+            try
+            {
+                n = problemSolver.calculateZad2(z);
+            }
+            catch (TimeoutException ex)
+            {
+                textBox3.Text = "Przekroczono czas oczekiwania na wyniki, spróbuj łatwiejszych do obliczenia danych wejściowych";
+                return;
+            }
             textBox3.Text = String.Format("Szukane n to {0}", n);
         }
     }

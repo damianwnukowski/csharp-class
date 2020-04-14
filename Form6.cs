@@ -32,12 +32,23 @@ namespace Damian_Wnukowski_zadanie1
             }
             catch
             {
-                textBox3.Text = "Liczby muszą być we właściwym formacie!";
+                textBox3.Text = "Liczby wejściowe muszą być we właściwym formacie i nie mogą być puste!";
                 return;
             }
 
-            Global forRect = problemSolver.calculateZad6(k, m, Model.AreaType.Rectangle);
-            Global forTrapez= problemSolver.calculateZad6(k, m, Model.AreaType.Trapezoid);
+            Global forRect;
+            Global forTrapez;
+
+            try
+            {
+                forRect = problemSolver.calculateZad6(k, m, Model.AreaType.Rectangle);
+                forTrapez = problemSolver.calculateZad6(k, m, Model.AreaType.Trapezoid);
+            }
+            catch (TimeoutException ex)
+            {
+                textBox3.Text = "Przekroczono czas oczekiwania na wyniki, spróbuj łatwiejszych do obliczenia danych wejściowych";
+                return;
+            }
 
             textBox3.Text = String.Format("(METODA PROSTOKĄTÓW) Dla podanego K i M  znaleziono przedział dla x^2: ({0}, {1}) , dla x^3: ({2}, {3}), różnica pomiędzy ich całkami wynosi: {4} ", 
                 forRect.ListOfSingleCount[0].X1, forRect.ListOfSingleCount[0].X2, forRect.ListOfSingleCount[1].X1, forRect.ListOfSingleCount[1].X2, 

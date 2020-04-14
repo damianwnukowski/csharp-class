@@ -31,12 +31,25 @@ namespace Damian_Wnukowski_zadanie1
             }
             catch
             {
-                textBox3.Text = "Podaj wartości M(liczba powtórzeń) i Z (ilość procent). Liczby muszą być we właściwym formacie!";
+                textBox3.Text = "Liczby wejściowe muszą być we właściwym formacie i nie mogą być puste!";
                 return;
             }
 
-            textBox3.Text = String.Format("Błąd średniokwadratowy dla metody trapezów dla podanych x1 i x2 wynosi {0} \n \r", problemSolver.calculateZad3(x1, x2, Model.AreaType.Trapezoid));
-            textBox3.Text += String.Format("Błąd średniokwadratowy dla metody prostokątów dla podanych x1 i x2 wynosi {0} \n \r", problemSolver.calculateZad3(x1, x2, Model.AreaType.Rectangle));
+            double result1;
+            double result2;
+            try
+            {
+                result1 = problemSolver.calculateZad3(x1, x2, Model.AreaType.Trapezoid);
+                result2 = problemSolver.calculateZad3(x1, x2, Model.AreaType.Rectangle);
+            }
+            catch (TimeoutException ex)
+            {
+                textBox3.Text = "Przekroczono czas oczekiwania na wyniki, spróbuj łatwiejszych do obliczenia danych wejściowych";
+                return;
+            }
+
+            textBox3.Text = String.Format("Błąd średniokwadratowy dla metody trapezów dla podanych x1 i x2 wynosi {0} \n \r", result1);
+            textBox3.Text += String.Format("Błąd średniokwadratowy dla metody prostokątów dla podanych x1 i x2 wynosi {0} \n \r", result2);
 
         }
     }
